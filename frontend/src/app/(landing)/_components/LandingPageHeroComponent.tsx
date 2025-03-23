@@ -4,8 +4,12 @@ import { HeroHighlight, Highlight } from '@/components/ui/hero-highlight'
 import React from 'react'
 
 import {motion} from "motion/react";
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export default function LandingPageHeroComponent() {
+
+    const router = useRouter();
     return (
         <div>
         <HeroHighlight>
@@ -30,7 +34,14 @@ export default function LandingPageHeroComponent() {
                     You get a super power of execution
                 </Highlight>
             </motion.h1>
+            <div className='w-fit m-auto mt-4 '>
+                <Button onClick={() => {
+                    router.push("/login")
+                }} className='cursor-pointer'>Let's go</Button>
+                </div>
+
         </HeroHighlight>
+        
         </div>
     )
 }
