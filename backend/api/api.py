@@ -6,6 +6,8 @@ from fastapi import APIRouter
 from api.example_router.routes import router as example_router
 from api.ai_agent.routes import router as ai_agent_router
 
+from api.user_feature.routes import router as user_feature_router
+
 router = APIRouter(prefix="/api/v1")
 
 
@@ -15,3 +17,4 @@ router = APIRouter(prefix="/api/v1")
 
 router.include_router(example_router)
 router.include_router(ai_agent_router)
+router.include_router(user_feature_router)

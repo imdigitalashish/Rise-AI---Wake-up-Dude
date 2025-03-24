@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'example_app.apps.ExampleAppConfig',
     'aiworkflow.apps.AiworkflowConfig',
+    'platformusers.apps.PlatformusersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
