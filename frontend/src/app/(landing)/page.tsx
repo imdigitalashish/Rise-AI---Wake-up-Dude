@@ -1,10 +1,11 @@
 import React from 'react'
 import LandingPageHeroComponent from './_components/LandingPageHeroComponent'
+import PortalLayout from '../_components/layout/PortalLayout'
 
 export default function page() {
   return (
-    <div>
+    <PortalLayout>
         <LandingPageHeroComponent />
-    </div>
+    </PortalLayout>
   )
 }
