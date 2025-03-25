@@ -36,7 +36,7 @@ export default function LandingPageHeroComponent() {
             </motion.h1>
             <div className='w-fit m-auto mt-4 '>
                 <Button onClick={() => {
-                    router.push("/login")
+                    router.push("/signup")
                 }} className='cursor-pointer'>Let's go</Button>
                 </div>
 
