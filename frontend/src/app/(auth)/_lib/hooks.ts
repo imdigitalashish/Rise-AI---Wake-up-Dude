@@ -13,6 +13,11 @@ export type UserRegister = {
 }
 
 
+export type LoginType = {
+    identifier: string,
+    password: string
+}
+
 export default function useAuthHook() {
 
     const router = useRouter();
@@ -29,7 +34,32 @@ export default function useAuthHook() {
         })
     }
 
+    const login = async (login_details: LoginType) => {
+        const request = await app_api.post("/user_feature/login", login_details)
+
+        if (request.status !== 200) {
+            toast.error("Invalid username or password")
+            return
+        }
+
+        localStorage.setItem("token", request.data.token)
+        localStorage.setItem("user_uuid", request.data.uuid)
+
+        toast("You're logged in successfully", {
+            action: {
+                label: "Dashboard",
+                onClick: () => {
+                    router.push("/dashboard")
+                }
+            },
+            position: "top-center"
+        })
+
+        router.push("/dashboard")
+    }
+
     return {
-        register
+        register,
+        login
     }
 }

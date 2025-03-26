@@ -64,4 +64,4 @@ async def login_user(login_data: UserLogin):
     user.token = token
     await sync_to_async(user.save)()
 
-    return {"message": "Login successful", "token": token}
+    return {"message": "Login successful", "token": token, "uuid": user.uuid}

@@ -11,6 +11,8 @@ from starlette.concurrency import run_in_threadpool
 from api.ai_agent.models import WorkFlowRequest
 import datetime
 
+from platformusers.models import PlatformUsers
+
 configureDjangoSettings()
 
 from aiworkflow.models import WorkflowTasks
@@ -44,3 +46,25 @@ async def add_workflow(workflowRequest: WorkFlowRequest):
     )
     
     return {"message": "Workflow added successfully", "data": obj}
+
+
+@router.get("/get-all-workflow")
+async def get_all_workflow_of_user(token: str):
+    user = await run_in_threadpool(lambda: PlatformUsers.objects.filter(token=token).first())
+    if not user:
+        return {"message": "User not found"}
+    
+    
+    all_data = await run_in_threadpool(lambda: list(WorkflowTasks.objects.filter(created_by_user_uuid=user.uuid)))
+    return {"message": "Workflow added successfully", "data": all_data}
+
+@router.delete("/delete-workflow")
+async def delete_workflow(workflow_id: int, token: str):
+    
+    user = await run_in_threadpool(lambda: PlatformUsers.objects.filter(token=token).first())
+    if not user:
+        return {"message": "User not found"}
+    
+    await run_in_threadpool(lambda: WorkflowTasks.objects.filter(id=workflow_id, created_by_user_uuid=user.uuid).delete())
+    
+    return {"message": "Workflow deleted successfully"}

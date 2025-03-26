@@ -14,6 +14,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import useAuthHook, { UserRegister } from '../_lib/hooks'
+import Link from 'next/link'
 
 function NewReactComponent() {
 
@@ -25,7 +26,7 @@ function NewReactComponent() {
     email: ""
   });
 
-  const {register} = useAuthHook();
+  const { register } = useAuthHook();
 
   const handleRegister = () => {
     register(authState);
@@ -49,12 +50,16 @@ function NewReactComponent() {
             </CardHeader>
             <CardContent>
               <Input onChange={handleStateChange} type='email' placeholder='Email' name='email' className='border border-solid border-2' />
-              <Input onChange={handleStateChange} type='text' placeholder='Username' name='username'  className='border border-solid border-2' />
-              <Input onChange={handleStateChange} type='password' placeholder='Password' name='password'  className='border border-solid border-2' />
+              <Input onChange={handleStateChange} type='text' placeholder='Username' name='username' className='border border-solid border-2' />
+              <Input onChange={handleStateChange} type='password' placeholder='Password' name='password' className='border border-solid border-2' />
             </CardContent>
             <CardFooter>
-             <Button onClick={handleRegister} className='w-full'>Join</Button>
+              <div>
+                <Button onClick={handleRegister} className='w-full'>Join</Button>
+                <div className='text-sm mt-2'>Already have an account? <Link className='text-blue-700' href={"/login"}>Login</Link></div>
+              </div>
             </CardFooter>
+
           </Card>
         </div>
 
