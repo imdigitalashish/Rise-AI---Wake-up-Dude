@@ -16,15 +16,37 @@ from platformusers.models import PlatformUsers
 configureDjangoSettings()
 
 from aiworkflow.models import WorkflowTasks
+from elevenlabs.client import ElevenLabs
 
 router = APIRouter(
     tags=["ai_agent"],
     prefix="/ai_agent"
 )
 
+client = ElevenLabs()
+
+from pydantic_ai import Agent
+
+from pydantic import BaseModel
+
+
+class Response(BaseModel):
+    response:str
+
+agent = Agent("google-gla:gemini-2.0-flash", result_type=Response)
+
 
 def get_current_time():
     return (datetime.datetime.now() + datetime.timedelta(seconds=10)).strftime("%Y-%m-%d %H:%M:%S")
+
+
+
+def convert_text_to_mp3(text: str):
+    audio = client.text_to_speech(
+        text=text,
+        voice="Bella",
+    )
+    return audio
 
 
 
@@ -40,7 +62,7 @@ async def add_workflow(workflowRequest: WorkFlowRequest):
     trigger = DateTrigger(run_date=trigger_time)
     
     scheduler.add_job(
-        func=lambda: print("Workflow triggered"),
+        func=lambda: print(workflowRequest.workflow_name),
         trigger=trigger,
         id=str(uuid.uuid4()), replace_existing=True
     )

@@ -77,18 +77,18 @@ export default function DashboardPageComponent() {
                 <div className='font-bold h-[50vh] justify-center items-center w-full flex text-gray-500 text-center'>
                     <div>
                         <h2 className='text-4xl '>No Workflows now....</h2>
-                      
+
                     </div>
                 </div>
 
             </>}
             <div className='text-center m-3'>
                 <WorkflowDialog onSave={saveWorkflow} triggerButton={
-                                <Button>
-                                    <PlusCircle className="mr-2 h-4 w-4" />
-                                    Create Workflow
-                                </Button>
-                            } />
+                    <Button>
+                        <PlusCircle className="mr-2 h-4 w-4" />
+                        Create Workflow
+                    </Button>
+                } />
             </div>
 
             <div className='p-6'>
@@ -105,16 +105,16 @@ export default function DashboardPageComponent() {
                                     </div>
                                 </div>
                                 <p className='text-gray-500'>{workflow.workflow_description}</p>
-                                
+
                                 <p className='text-gray-500'>
-                                    {workflow.workflow_trigger_time ? 
+                                    {workflow.workflow_trigger_time ?
                                         new Date(workflow.workflow_trigger_time).toLocaleString('en-US', {
                                             year: 'numeric',
                                             month: 'short',
                                             day: 'numeric',
                                             hour: '2-digit',
                                             minute: '2-digit'
-                                        }) : 
+                                        }) :
                                         'No trigger time set'}
                                 </p>
                             </motion.div>
