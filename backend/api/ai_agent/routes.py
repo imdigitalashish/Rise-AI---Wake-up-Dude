@@ -47,7 +47,12 @@ And write in their language if it's hindi write in hindi
 
 
 """
-agent = Agent("google-gla:gemini-2.0-flash", result_type=Response, system_prompt=sustem_prompt)
+
+
+class Response(BaseModel):
+    response:str
+
+agent = Agent("gpt-4", result_type=Response, system_prompt=sustem_prompt)
 
 client = ElevenLabs(api_key=os.environ.get("ELEVEN_LABS_KEY"))
 
@@ -55,11 +60,6 @@ from pydantic_ai import Agent
 
 from pydantic import BaseModel
 
-
-class Response(BaseModel):
-    response:str
-
-agent = Agent("google-gla:gemini-2.0-flash", result_type=Response)
 
 
 def get_current_time():
