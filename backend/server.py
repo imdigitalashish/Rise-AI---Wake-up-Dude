@@ -27,6 +27,11 @@ from api.config import configureDjangoSettings
 configureDjangoSettings()
 
 
+# if audio_files is not there make it
+
+if not os.path.exists("audio_files"):
+    os.makedirs("audio_files")
+
 
 
 dictConfig(LogConfig())
@@ -44,6 +49,8 @@ def configure_cors(app: FastAPI) -> None:
         allow_headers=["*"],
     )
 logger.info("STARTING SERVER")
+
+
 
 
 @sync_to_async
@@ -70,6 +77,8 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title=LOGGER_NAME, lifespan=lifespan)
 configure_cors(app=app)
 
+
+app.mount("/audio_files", StaticFiles(directory="audio_files"), name="audio_files")
 
 app.include_router(router=router)
 
